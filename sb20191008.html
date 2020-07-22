@@ -85,9 +85,9 @@
         <script>
             var counter = 0;
             var button = document.getElementById('button');
-            var source = Rx.Observable.fromEvent(button, 'click')//들어온 이벤트를 구독가능상태로 만들어주고
+            var source = Rx.Observable.fromEvent(button, 'click')//들어온 이벤트를 구독가능상태로 만들어주고,
 
             var incrementSubsvription = source.subscribe(() => counter++); //인자가 들어오면 그 소스를 관찰하여(subscribe:구독하다) 클릭할때마다 카운트값을 올려주는 (incrementSubsvription: 구독가능도 해지도 가능한.)
-            var subscription = source.filter((x) => counter % 2 === 0) //그 소스에 필터링을 걸어
+            var subscription = source.filter((x) => counter % 2 === 0) //그 소스에 필터링을 걸어서
              .subscribe((event) => {output.innerHTML = '클릭수(짝수일때만 표기) : '+   counter});//표기
         </script>
