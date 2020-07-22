@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+        <!--20191010-->
+            <!--정해진 초 안에 여러번 클릭해도 그 클릭수는 인정되지 않고 n초안에 여러번 클릭되어도n초후에 클릭했다는 1 증가-->
+        <!--<head>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.1/Rx.js">
+            
+                </script>
+         </head>
+            <body>
+                    <P>
+                        <button id = 'button'> Click Me!   </button>
+                        <spen id = 'output'> </spen>
+                    </P>
+                </body>
+                <script>
+                    var counter = 0;
+                    var button = document.getElementById('button');
+                    var source = Rx.Observable.fromEvent(button, 'click');
+        
+                    source.buffer(source.throttleTime(3000))
+                        .map((list) => list.length)
+                        .filter((x) => x >= 1)
+                        .subscribe((x) => {
+                            counter++;
+                            output.innerHTML = "Clicked"+  counter + "time";    
+                                + (counter > 1  ? "s" : " "); 
+                        });
+
+                   
+                </script>-->
+
+<!--<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.1/Rx.js">
+
+    </script>
+</head>
+<body>
+    <p>
+        <button id = 'red'> Red </button>
+        <button id = 'yellow'> Yellow </button>
+        <button id = 'blue'> Blue </button>
+        
+    </p>    
+    <p id = 'output1'></p>
+</body>
+<script>
+    var buttonR = document.getElementById('red');//red라는 아이디에 접근하는 코드
+    var buttonY = document.getElementById('yellow');
+    var buttonB = document.getElementById('blue');
+
+    var buttonRStream = Rx.Observable.fromEvent(buttonR, 'click');//red라는 버튼을 눌렀을때 구독가능한 상태로 만들어줌
+    var buttonYStream = Rx.Observable.fromEvent(buttonY, 'click');
+    var buttonBStream = Rx.Observable.fromEvent(buttonB, 'click');
+
+    var messageStream1 = Rx.Observable.merge(buttonRStream, buttonYStream, buttonBStream);
+    //버튼이 클릭되면 스트림이 마련되고 빨,노,파 순으로 하나의 스트림 생성. 스트림의 장점은 즉시즉시 반응한다
+
+    messageStream1.subscribe((x) => {
+        output1.innerHTML = (x.type + " on " + x.srcElement.id) //x.type은 클릭을 의미
+    })
+
+
+
+</script>-->
+
+<head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.1/Rx.js">
+    
+        </script>
+    </head>
+    <body>
+        <p>
+            <button id = 'red'> Red </button>
+            <button id = 'yellow'> Yellow </button>
+            <button id = 'blue'> Blue </button>
+            <button id = 'triangle'> Triangle </button>
+            <button id = 'square'> Square </button>
+            
+        </p>    
+        <p id = 'output1'></p>
+        <p id = 'output2'></p>
+    </body>
+    <script>
+        var buttonR = document.getElementById('red');//red라는 아이디에 접근하는 코드
+        var buttonY = document.getElementById('yellow');
+        var buttonB = document.getElementById('blue');
+        var buttonT = document.getElementById("triangle");
+        var buttonS = document.getElementById("square"); 
+    
+        var buttonRStream = Rx.Observable.fromEvent(buttonR, 'click');//red라는 버튼을 눌렀을때 구독가능한 상태로 만들어줌
+        var buttonYStream = Rx.Observable.fromEvent(buttonY, 'click');
+        var buttonBStream = Rx.Observable.fromEvent(buttonB, 'click');
+        var buttonTStream = Rx.Observable.fromEvent(buttonT, 'click');
+        var buttonSStream = Rx.Observable.fromEvent(buttonS, 'click');
+        
+    
+        var messageStream1 = Rx.Observable.merge(buttonRStream, buttonYStream, buttonBStream);
+        //버튼이 클릭되면 스트림이 마련되고 빨,노,파 순으로 하나의 스트림 생성.
+        var messageStream2 = Rx.Observable.merge(buttonTStream, buttonSStream);
+        var messageStream3 = Rx.Observable.zip(messageStream1, messageStream2);//두개의 스트림 쌍을 묶음
+        
+    
+        messageStream1.subscribe((x) => {
+            output1.innerHTML = (x.type + " on " + x.srcElement.id) //x.type은 클릭을 의미
+        })
+        messageStream3.subscribe(([x, y]) => {
+            output2 .innerHTML = x.srcElement.id + "와 " + y.srcElement.id
+        });
+    
+    
+    </script>
