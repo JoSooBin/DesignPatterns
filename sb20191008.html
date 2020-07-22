@@ -1,0 +1,93 @@
+<!--<!DOCTYPE html>
+<head>
+    <title>
+        예제1
+    </title>
+</head>
+<body>
+    <p id = "ex1">hello? </p>
+</body>
+<script>
+    var item = document.getElementById('ex1')//해당하는 아이디 객체 반환
+    item.addEventListener("click", function(event){
+    alert('hello');//리스너가 이벤트 기다리고 event가 콜백
+    })//hello클릭하면 경고창 뜸
+</script>-->
+
+
+<!--<script>
+    document.write([1,4,6,9,12,34,56,68]);  
+    document.write([1,4,6,9,12,34,56,68].filter((x) => x % 2 == 0 ));    
+</script>-->
+
+<!--<body>
+    <P>
+        <button id = 'button'>
+            Click Me!   
+        </button>
+    </P>
+</body>
+<script>
+    var item = document.getElementById('button');//버튼이라는 아이템에 접근
+    item.addEventListener('click',() => {
+        console.log('Clicked!');//브라우저 콘솔창에 뜬다.
+    })
+</script>-->
+
+<!--<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.1/Rx.js">
+
+    </script>
+</head>
+<body>
+        <P>
+            <button id = 'button'> Click Me!   </button>
+            <spen id = 'output'> </spen>
+        </P>
+    </body>
+    <script>
+        var button = document.getElementById('button');
+        Rx.Observable.fromEvent(button, 'click').subscribe((x) => console.log('clicked!'))//함수형 반응형 관찰형. 위와 결과 동일
+    </script>-->
+
+<!--<head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.1/Rx.js">
+    
+        </script>
+    </head>
+    <body>
+            <P>
+                <button id = 'button'> Click Me!   </button>
+                <spen id = 'output'> </spen>
+            </P>
+        </body>
+        <script>
+            var counter = 0;
+            var button = document.getElementById('button');
+            Rx.Observable.fromEvent(button, 'click')
+            .subscribe(function(event){
+                counter++;
+                output.innerHTML = '클릭수: '+counter;
+            });
+        </script>-->
+
+<head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/5.5.1/Rx.js">
+    
+        </script>
+    </head>
+    <body>
+            <P>
+                <button id = 'button'> Click Me!   </button>
+                <spen id = 'output'> </spen>
+            </P>
+        </body>
+        <script>
+            var counter = 0;
+            var button = document.getElementById('button');
+            var source = Rx.Observable.fromEvent(button, 'click')//들어온 이벤트를 구독가능상태로 만들어주고
+
+            var incrementSubsvription = source.subscribe(() => counter++); //인자가 들어오면 그 소스를 관찰하여(subscribe:구독하다) 클릭할때마다 카운트값을 올려주는 (incrementSubsvription: 구독가능도 해지도 가능한.)
+            var subscription = source.filter((x) => counter % 2 === 0) //그 소스에 필터링을 걸어
+             .subscribe((event) => {output.innerHTML = '클릭수(짝수일때만 표기) : '+   counter});//표기
+        </script>
